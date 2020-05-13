@@ -4,11 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.leofalves.udemy.vendascourse.domain.entity.Cliente;
 
@@ -23,8 +26,12 @@ public class Clientes {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	@Autowired
+	private EntityManager entityManager;
+	
+	@Transactional
 	public Cliente salvar(Cliente cliente) {
-		jdbcTemplate.update(INSERT, new Object[]{cliente.getNome()});
+		entityManager.persist(cliente);
 		return cliente;
 	}
 	
