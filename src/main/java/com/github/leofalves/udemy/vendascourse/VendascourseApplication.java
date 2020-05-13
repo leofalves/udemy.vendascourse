@@ -46,7 +46,7 @@ public class VendascourseApplication {
 			
 			System.out.println("Deletando clientes");
 			todosClientes.forEach(c -> {
-				clientes.delete(c);
+				clientes.deletar(c);
 			});
 			
 			todosClientes = clientes.obterTodos();
