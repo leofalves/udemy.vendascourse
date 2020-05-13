@@ -22,34 +22,34 @@ public class VendascourseApplication {
 			System.out.println("Salvando clientes");
 			Cliente c1= new Cliente();
 			c1.setNome("Leo Fabiano");
-			clientes.salvar(c1);
+			clientes.save(c1);
 			
 			Cliente c2 = new Cliente();
 			c2.setNome("Elaine Silva");
-			clientes.salvar(c2);
+			clientes.save(c2);
 			
-			List<Cliente> todosClientes = clientes.obterTodos();
+			List<Cliente> todosClientes = clientes.findAll();
 			todosClientes.forEach(System.out::println);
 			
 			
 			System.out.println("Atualizando clientes");
 			todosClientes.forEach(c -> {
 				c.setNome(c.getNome() + " Atualizado");
-				clientes.atualizar(c);
+				clientes.save(c);
 			});		
-			todosClientes = clientes.obterTodos();
+			todosClientes = clientes.findAll();
 			todosClientes.forEach(System.out::println);
 			
 			System.out.println("Obter por nome");
-			clientes.obterPorNome("Atualizado").forEach(System.out::println);
+			clientes.findByNomeLike("Atualizado").forEach(System.out::println);
 			
 			
 			System.out.println("Deletando clientes");
 			todosClientes.forEach(c -> {
-				clientes.deletar(c);
+				clientes.delete(c);
 			});
 			
-			todosClientes = clientes.obterTodos();
+			todosClientes = clientes.findAll();
 			if(todosClientes.isEmpty()) {
 				System.out.println("Todos clientes deletados");
 			}
