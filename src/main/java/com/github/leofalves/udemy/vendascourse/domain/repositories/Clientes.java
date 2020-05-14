@@ -1,4 +1,4 @@
-package com.github.leofalves.udemy.vendascourse.domain.repository;
+package com.github.leofalves.udemy.vendascourse.domain.repositories;
 
 import java.util.List;
 
@@ -45,5 +45,8 @@ public interface Clientes extends JpaRepository<Cliente, Integer> {
 	@Modifying
 	@Transactional
 	void deletarPorNome(@Param("nome") String nome);
+	
+	@Query(" select c from Cliente c left join fetch c.pedidos where c.id = :id ")
+	Cliente findClienteFetchPedidos(@Param("id") Integer id);
 	
 }
