@@ -34,24 +34,35 @@ public class VendascourseApplication {
 			boolean existe = clientes.existsByNome("Elaine Silva" );
 			System.out.println("Existe cliente com nome Elaine Silva? " + existe);
 			
+//			
+//			System.out.println("Atualizando clientes");
+//			todosClientes.forEach(c -> {
+//				c.setNome(c.getNome() + " Atualizado");
+//				clientes.save(c);
+//			});		
+//			todosClientes = clientes.findAll();
+//			todosClientes.forEach(System.out::println);
 			
-			System.out.println("Atualizando clientes");
-			todosClientes.forEach(c -> {
-				c.setNome(c.getNome() + " Atualizado");
-				clientes.save(c);
-			});		
-			todosClientes = clientes.findAll();
-			todosClientes.forEach(System.out::println);
+			//System.out.println("Obter por nome");
+			//clientes.findByNomeLike("Atualizado").forEach(System.out::println);
 			
-			System.out.println("Obter por nome");
-			clientes.findByNomeLike("Atualizado").forEach(System.out::println);
+			System.out.println("Encontrar por nome com @Query");
+			List<Cliente> result = clientes.encontrarPorNome("Leo");
+			result.forEach(System.out::println);
 			
+			System.out.println("Encontrar por nome com @Query com SQL NATIVO");
+			List<Cliente> result2 = clientes.encontrarPorNome("Leo");
+			result2.forEach(System.out::println);
+			System.out.println("Tamanho da lista: " + result2.size());
+
+
+			clientes.deletarPorNome("Leo Fabiano");
 			
-			System.out.println("Deletando clientes");
-			todosClientes.forEach(c -> {
-				clientes.delete(c);
-			});
-			
+//			System.out.println("Deletando clientes");
+//			todosClientes.forEach(c -> {
+//				clientes.delete(c);
+//			});
+//			
 			todosClientes = clientes.findAll();
 			if(todosClientes.isEmpty()) {
 				System.out.println("Todos clientes deletados");
