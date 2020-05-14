@@ -31,6 +31,9 @@ public class VendascourseApplication {
 			List<Cliente> todosClientes = clientes.findAll();
 			todosClientes.forEach(System.out::println);
 			
+			boolean existe = clientes.existsByNome("Elaine Silva" );
+			System.out.println("Existe cliente com nome Elaine Silva? " + existe);
+			
 			
 			System.out.println("Atualizando clientes");
 			todosClientes.forEach(c -> {
