@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "66a91f32-9ac2-4c84-b1e5-45c2c236fec4",
+		"name": "Udemy-SprintEspecialista",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/api/clientes?nome=leo&cpf=160",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"Elaine Carla da Silva\",\n\t\"cpf\": \"14558520012\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/clientes?nome=leo&cpf=160",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "leo"
+						},
+						{
+							"key": "cpf",
+							"value": "160"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
