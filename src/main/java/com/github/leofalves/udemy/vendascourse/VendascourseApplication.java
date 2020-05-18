@@ -12,14 +12,6 @@ import com.github.leofalves.udemy.vendascourse.domain.repositories.Clientes;
 @SpringBootApplication
 public class VendascourseApplication {
 
-	@Bean
-	public CommandLineRunner commandLineRunner (@Autowired Clientes clientes) {
-		return args -> {
-			 Cliente c1 = new Cliente(null, "Leo Fabiano");
-			 clientes.save(c1);
-		};
-	}
-	
 	public static void main(String[] args) {
 		SpringApplication.run(VendascourseApplication.class, args);
 	}
