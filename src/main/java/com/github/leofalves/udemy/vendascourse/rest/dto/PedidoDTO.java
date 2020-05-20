@@ -3,6 +3,10 @@ package com.github.leofalves.udemy.vendascourse.rest.dto;
 import java.math.BigDecimal;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /*
 {
 	"cliente": 1,
@@ -16,6 +20,9 @@ import java.util.List;
 }
  * */
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PedidoDTO {
 	
 	private Integer cliente;
