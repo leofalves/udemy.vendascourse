@@ -1,8 +1,8 @@
 package com.github.leofalves.udemy.vendascourse.service.Impl;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -76,5 +76,10 @@ public class PedidoServiceImpl implements PedidoService {
 					item.setProduto(prod);
 					return item;					
 				}).collect(Collectors.toList());
+	}
+
+	@Override
+	public Optional<Pedido> obterPedidoCompleto(Integer id) {
+		return pedidosRepository.findByIdFetchItens(id);
 	}
 }
