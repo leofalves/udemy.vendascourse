@@ -12,10 +12,12 @@ import com.github.leofalves.udemy.vendascourse.domain.entity.Cliente;
 import com.github.leofalves.udemy.vendascourse.domain.entity.ItemPedido;
 import com.github.leofalves.udemy.vendascourse.domain.entity.Pedido;
 import com.github.leofalves.udemy.vendascourse.domain.entity.Produto;
+import com.github.leofalves.udemy.vendascourse.domain.enums.StatusPedido;
 import com.github.leofalves.udemy.vendascourse.domain.repositories.Clientes;
 import com.github.leofalves.udemy.vendascourse.domain.repositories.ItensPedido;
 import com.github.leofalves.udemy.vendascourse.domain.repositories.Pedidos;
 import com.github.leofalves.udemy.vendascourse.domain.repositories.Produtos;
+import com.github.leofalves.udemy.vendascourse.exception.PedidoNaoEncontradoException;
 import com.github.leofalves.udemy.vendascourse.exception.RegraNegocioException;
 import com.github.leofalves.udemy.vendascourse.rest.dto.ItemPedidoDTO;
 import com.github.leofalves.udemy.vendascourse.rest.dto.PedidoDTO;
@@ -47,6 +49,7 @@ public class PedidoServiceImpl implements PedidoService {
 		Pedido pedido = new Pedido();
 		pedido.setTotal(pedidoDTO.getTotal());
 		pedido.setDataPedido(LocalDate.now());
+		pedido.setStatus(StatusPedido.REALIZADO);
 		pedido.setCliente(cliente);
 		pedidosRepository.save(pedido);
 		
@@ -81,5 +84,16 @@ public class PedidoServiceImpl implements PedidoService {
 	@Override
 	public Optional<Pedido> obterPedidoCompleto(Integer id) {
 		return pedidosRepository.findByIdFetchItens(id);
+	}
+
+	@Override
+	@Transactional
+	public void atualizaStatus(Integer id, StatusPedido statusPedido) {
+		pedidosRepository.findById(id)
+				.map(pedido -> {
+					pedido.setStatus(statusPedido);
+					return pedidosRepository.save(pedido);
+				}).orElseThrow(() -> new PedidoNaoEncontradoException());
+		
 	}
 }

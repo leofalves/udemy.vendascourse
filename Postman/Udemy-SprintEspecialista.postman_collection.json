@@ -6,7 +6,35 @@
 	},
 	"item": [
 		{
-			"name": "localhost:8080/api/clientes?nome=leo&cpf=160",
+			"name": "Clientes - POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"Leo Fabiano Alves\",\n\t\"cpf\": \"16020072843\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/clientes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clientes - GET",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -15,7 +43,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nome\": \"Elaine Carla da Silva\",\n\t\"cpf\": \"14558520012\"\n}",
+					"raw": "{\n\t\"nome\": \"Leo Fabiano Alves\",\n\t\"cpf\": \"16020072843\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -23,7 +51,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/clientes?nome=leo&cpf=160",
+					"raw": "localhost:8080/api/clientes",
 					"host": [
 						"localhost"
 					],
@@ -31,16 +59,154 @@
 					"path": [
 						"api",
 						"clientes"
-					],
-					"query": [
-						{
-							"key": "nome",
-							"value": "leo"
-						},
-						{
-							"key": "cpf",
-							"value": "160"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produtos - POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"descricao\": \"NOTEBOOK\",\n\t\"preco\": \"2300\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/produtos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"produtos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produtos - GET",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"descricao\": \"Mouse\",\n\t\"preco\": \"39\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/produtos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"produtos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pedidos - POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cliente\": 1,\n    \"total\": 4600,\n    \"items\": [\n        {\n            \"produto\": 2,\n            \"quantidade\": 2\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/pedidos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pedidos - GET",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cliente\": 1,\n    \"total\": 2900,\n    \"items\": [\n        {\n            \"produto\": 2,\n            \"quantidade\": 7\n        },\n        {\n            \"produto\": 3,\n            \"quantidade\": 1\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/pedidos/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pedidos - PATCH",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"novoStatus\": \"CANCELADO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/pedidos/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos",
+						"3"
 					]
 				}
 			},

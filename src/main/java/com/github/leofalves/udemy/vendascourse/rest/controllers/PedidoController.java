@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.github.leofalves.udemy.vendascourse.domain.entity.ItemPedido;
 import com.github.leofalves.udemy.vendascourse.domain.entity.Pedido;
+import com.github.leofalves.udemy.vendascourse.domain.enums.StatusPedido;
+import com.github.leofalves.udemy.vendascourse.rest.dto.AtualizacaoStatusPedidoDTO;
 import com.github.leofalves.udemy.vendascourse.rest.dto.InformacoesItensPedidoDTO;
 import com.github.leofalves.udemy.vendascourse.rest.dto.InformacoesPedidoDTO;
 import com.github.leofalves.udemy.vendascourse.rest.dto.PedidoDTO;
@@ -46,6 +49,16 @@ public class PedidoController {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado. Id: " + id));				
 	}
 	
+	@PatchMapping("{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void updateStatus(@PathVariable Integer id,
+							 @RequestBody AtualizacaoStatusPedidoDTO dto) {
+		
+		String novoStatus = dto.getNovoStatus();
+		service.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
+		
+	}
+	
 	private InformacoesPedidoDTO converter (Pedido pedido) {
 		return InformacoesPedidoDTO.builder()
 			.codigo(pedido.getId())
@@ -53,6 +66,7 @@ public class PedidoController {
 			.cpf(pedido.getCliente().getCpf())
 			.nomeCliente(pedido.getCliente().getNome())
 			.total(pedido.getTotal())
+			.status(pedido.getStatus().name())
 			.itens(converter(pedido.getItens()))
 			.build();
 	}
