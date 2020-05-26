@@ -2,6 +2,8 @@ package com.github.leofalves.udemy.vendascourse.rest.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -32,7 +34,7 @@ public class ProdutoController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Produto save(@RequestBody Produto produto) {
+	public Produto save(@RequestBody @Valid Produto produto) {
 		return produtos.save(produto);
 	}
 	
@@ -45,7 +47,7 @@ public class ProdutoController {
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void update(@PathVariable Integer id, @RequestBody Produto produto) {
+	public void update(@PathVariable Integer id, @RequestBody @Valid Produto produto) {
 		produtos.findById(id)
 						.map(produtoExistente -> {
 												produto.setId(produtoExistente.getId());
