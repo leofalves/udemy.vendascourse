@@ -36,12 +36,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 			.authorizeRequests()
 				.antMatchers("/api/clientes/**")
-				.authenticated() 						// SOMENTE USUÁRIOS AUTENTICADOS
-				//.hasRole("USER"); 					// USUÁRIOS AUTENTICADOS E COM A ROLE: USER
+					.hasAnyRole("USER","ADMIN")			// USUÁRIOS AUTENTICADOS E COM A ROLE: USER ou ADMIN
+				.antMatchers("/api/pedidos/**")
+					.hasAnyRole("USER","ADMIN")
+				.antMatchers("/api/produtos/**")
+					.hasRole("ADMIN")	
+				//.authenticated() 						// SOMENTE USUÁRIOS AUTENTICADOS
 				//.hasAuthority("MANTER CLIENTE");		// USUÁRIOS AUTENTICADOS E COM A AUTHORITY: MANTER CLIENTE
 				//.permitAll();							// PERMITIDO PARA TODOS (SEM SEGURANÇA)
 			.and()
-				//.formLogin("/meu-login.html"); 			// PODE TER UM FORMULARIO PERSONALIZADO OU O DEFAULT DO SPRING
+				//.formLogin("/meu-login.html"); 		// PODE TER UM FORMULARIO PERSONALIZADO OU O DEFAULT DO SPRING
 				.formLogin();
 		
 			/*
