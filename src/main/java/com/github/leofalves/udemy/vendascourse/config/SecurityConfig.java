@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.passwordEncoder(this.passwordEncoder())
 			.withUser("USER01")
 			.password(this.passwordEncoder().encode("123456"))
-			.roles("USER");
+			.roles("ADMIN", "USER");
 			//.authorities("MANTER CLIENTE");
 	}
 	
@@ -36,27 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 			.authorizeRequests()
 				.antMatchers("/api/clientes/**")
-					.hasAnyRole("USER","ADMIN")			// USUÁRIOS AUTENTICADOS E COM A ROLE: USER ou ADMIN
+					.hasAnyRole("USER","ADMIN")
 				.antMatchers("/api/pedidos/**")
 					.hasAnyRole("USER","ADMIN")
 				.antMatchers("/api/produtos/**")
-					.hasRole("ADMIN")	
-				//.authenticated() 						// SOMENTE USUÁRIOS AUTENTICADOS
-				//.hasAuthority("MANTER CLIENTE");		// USUÁRIOS AUTENTICADOS E COM A AUTHORITY: MANTER CLIENTE
-				//.permitAll();							// PERMITIDO PARA TODOS (SEM SEGURANÇA)
+					.hasRole("ADMIN")
 			.and()
-				//.formLogin("/meu-login.html"); 		// PODE TER UM FORMULARIO PERSONALIZADO OU O DEFAULT DO SPRING
-				.formLogin();
-		
-			/*
-			 * No formulário de login personalizado precisa de um form conforme abaixo:
-			 * <form method="post">
-			 * 		<input type="text" name="username">
-			 * 		<input type="secret" name="password">
-			 * 		<button type="submit">
-			 * </form>
-			 * 
-			 * */
-	
+				.httpBasic();		// PASSA A CREDENCIAL NO HEADER
 	}
 }
