@@ -1,5 +1,6 @@
 package com.github.leofalves.udemy.vendascourse.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,29 +9,26 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.github.leofalves.udemy.vendascourse.service.Impl.UsuarioServiceImpl;
+
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	/// Para testes de encode/decode
-	// https://bcrypt-generator.com/
+	@Autowired
+	UsuarioServiceImpl usuarioService;
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
-	// AUTENTICAÇÃO
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication()
-			.passwordEncoder(this.passwordEncoder())
-			.withUser("USER01")
-			.password(this.passwordEncoder().encode("123456"))
-			.roles("ADMIN", "USER");
-			//.authorities("MANTER CLIENTE");
+		auth.userDetailsService(usuarioService)
+			.passwordEncoder(this.passwordEncoder());
 	}
 	
 	
-	// AUTORIZAÇÃO
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
