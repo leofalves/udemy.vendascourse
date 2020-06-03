@@ -7,9 +7,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.github.leofalves.udemy.vendascourse.security.jwt.JwtAuthFilter;
+import com.github.leofalves.udemy.vendascourse.security.jwt.JwtService;
 import com.github.leofalves.udemy.vendascourse.service.Impl.UsuarioServiceImpl;
 
 @EnableWebSecurity
@@ -18,10 +23,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	UsuarioServiceImpl usuarioService;
 	
+	@Autowired
+	JwtService jwtService;
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	@Bean
+	public OncePerRequestFilter jwtFilter() {
+		return new JwtAuthFilter(jwtService, usuarioService);
+	}
+	
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -48,6 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.authenticated()
 				.and().headers().frameOptions().sameOrigin()	// PARA FUNCIONAR OS FRAMES DO CONSOLE DO BANCO H2
 			.and()
-				.httpBasic();		// PASSA A CREDENCIAL NO HEADER
+				.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // TORNA A APLICAÇÃO STATELESS
+			.and()
+				.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class); // ADICIONA O FILTRO INTERCEPTADOR ANTES DO FILTRO USERNAMEPASSWORD -- O FILTRO JWTFILTER INSERE O USUARIO DENTRO DO CONTEXTO
 	}
 }

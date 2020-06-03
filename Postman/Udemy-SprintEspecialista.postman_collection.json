@@ -9,22 +9,16 @@
 			"name": "Clientes - POST",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "{{password}}",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "{{user}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVU0VSMDEiLCJleHAiOjE1OTEyMjM4NjV9.XHjTXySvk2KG1c8Rlfn6BOXnC5CPFCKvJrrLJ1ULEiFCMnBTP92JthAWSLDA0KTg73NmjPWh5HiofGWSMtFrdw",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"nome\": \"Elaine Silva\",\n\t\"cpf\": \"14749573825\"\n}",
@@ -55,22 +49,16 @@
 			},
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "{{password}}",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "{{user}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVU0VSMDEiLCJleHAiOjE1OTEyMjQxMjZ9.Tq6ZeX3Qlr1epidWQuFGO2XUjExnzWagWsk_yUtFCCap9lNun8DoEy7s7I-Z93HDS3BsQkOLN25KhNQ7LSBJSA",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"nome\": \"Leo Fabiano Alves\",\n\t\"cpf\": \"16020072843\"\n}",
@@ -98,22 +86,16 @@
 			"name": "Produtos - POST",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "{{user}}",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "{{password}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVU0VSMDEiLCJleHAiOjE1OTEyMjQxMjZ9.Tq6ZeX3Qlr1epidWQuFGO2XUjExnzWagWsk_yUtFCCap9lNun8DoEy7s7I-Z93HDS3BsQkOLN25KhNQ7LSBJSA",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"descricao\": \"NOTEBOOK\",\n\t\"preco\": \"2300\"\n}",
@@ -144,22 +126,16 @@
 			},
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "123456",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "USER01",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVU0VSMDEiLCJleHAiOjE1OTEyMjQxMjZ9.Tq6ZeX3Qlr1epidWQuFGO2XUjExnzWagWsk_yUtFCCap9lNun8DoEy7s7I-Z93HDS3BsQkOLN25KhNQ7LSBJSA",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"descricao\": \"Mouse\",\n\t\"preco\": \"39\"\n}",
@@ -267,6 +243,63 @@
 						"api",
 						"pedidos",
 						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuarios - POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"USER01\",\n\t\"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/usuarios",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST - Autenticar Usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"USER01\",\n\t\"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/usuarios/auth",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios",
+						"auth"
 					]
 				}
 			},
