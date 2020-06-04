@@ -15,13 +15,13 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVU0VSMDEiLCJleHAiOjE1OTEyMjM4NjV9.XHjTXySvk2KG1c8Rlfn6BOXnC5CPFCKvJrrLJ1ULEiFCMnBTP92JthAWSLDA0KTg73NmjPWh5HiofGWSMtFrdw",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVU0VSMDEiLCJleHAiOjE1OTEzMTAxODl9.zjnHicRfrmarr4KHQYh7g9QWQ8enq_sfjnyntGdsVDiUIemuPO38VA5zLmdY90xhecBBD05kdtL70bbcX_-yuA",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nome\": \"Elaine Silva\",\n\t\"cpf\": \"14749573825\"\n}",
+					"raw": "{\n\t\"nome\": \"Leo Fabiano Alves\",\n\t\"cpf\": \"49699282070\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -55,7 +55,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVU0VSMDEiLCJleHAiOjE1OTEyMjQxMjZ9.Tq6ZeX3Qlr1epidWQuFGO2XUjExnzWagWsk_yUtFCCap9lNun8DoEy7s7I-Z93HDS3BsQkOLN25KhNQ7LSBJSA",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVU0VSMDEiLCJleHAiOjE1OTEzMTAxODl9.zjnHicRfrmarr4KHQYh7g9QWQ8enq_sfjnyntGdsVDiUIemuPO38VA5zLmdY90xhecBBD05kdtL70bbcX_-yuA",
 						"type": "text"
 					}
 				],
@@ -92,7 +92,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVU0VSMDEiLCJleHAiOjE1OTEyMjQxMjZ9.Tq6ZeX3Qlr1epidWQuFGO2XUjExnzWagWsk_yUtFCCap9lNun8DoEy7s7I-Z93HDS3BsQkOLN25KhNQ7LSBJSA",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVU0VSMDIiLCJleHAiOjE1OTEzMTA1NTl9.ww0vFnC6jYwwQ80Pm9cQ0c2YeRWbbfab41Hf6zvc1nTOZP16Kad8DwhcK5O77sg9dbB_FZKCJMafLZIaQYLt4Q",
 						"type": "text"
 					}
 				],
@@ -255,7 +255,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\": \"USER01\",\n\t\"password\": \"123\"\n}",
+					"raw": "{\n\t\"username\": \"USER02\",\n\t\"password\": \"123456\",\n\t\"admin\": \"true\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
