@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -22,49 +23,79 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	UsuarioServiceImpl usuarioService;
-	
+
 	@Autowired
 	JwtService jwtService;
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public OncePerRequestFilter jwtFilter() {
 		return new JwtAuthFilter(jwtService, usuarioService);
 	}
-	
-	
+
+	private static final String[] AUTH_WHITELIST = {
+
+			// -- swagger ui
+			"/swagger-resources/**", 
+			"/swagger-ui.html", 
+			"/v2/api-docs", 
+			"/configuration/ui", 
+			"/swagger-resources/**",
+			"/webjars/**" };
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(usuarioService)
-			.passwordEncoder(this.passwordEncoder());
+		auth.userDetailsService(usuarioService).passwordEncoder(this.passwordEncoder());
 	}
-	
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-			.authorizeRequests()
+		http.csrf().disable().authorizeRequests()
 				.antMatchers("/api/clientes/**")
-					.hasAnyRole("USER","ADMIN")
+					.hasAnyRole("USER", "ADMIN")
 				.antMatchers("/api/pedidos/**")
-					.hasAnyRole("USER","ADMIN")
+					.hasAnyRole("USER", "ADMIN")
 				.antMatchers("/api/produtos/**")
 					.hasRole("ADMIN")
 				.antMatchers(HttpMethod.POST, "/api/usuarios/**")
 					.permitAll()
+				//.antMatchers(AUTH_WHITELIST)
+				//	.permitAll()
 				.antMatchers("/h2-console/**")
 					.permitAll()
 				.anyRequest()
 					.authenticated()
-				.and().headers().frameOptions().sameOrigin()	// PARA FUNCIONAR OS FRAMES DO CONSOLE DO BANCO H2
-			.and()
+				.and()
+				.headers()
+					.frameOptions()
+					.sameOrigin() // PARA FUNCIONAR OS FRAMES DO CONSOLE DO BANCO H2
+				.and()
 				.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // TORNA A APLICAÇÃO STATELESS
-			.and()
-				.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class); // ADICIONA O FILTRO INTERCEPTADOR ANTES DO FILTRO USERNAMEPASSWORD -- O FILTRO JWTFILTER INSERE O USUARIO DENTRO DO CONTEXTO
+					.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // TORNA A APLICAÇÃO
+																									// STATELESS
+				.and()
+					.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class); // ADICIONA O FILTRO
+																								// INTERCEPTADOR
+																								// ANTES DO FILTRO
+																								// USERNAMEPASSWORD
+																								// -- O FILTRO
+																								// JWTFILTER INSERE
+																								// O USUARIO DENTRO
+																								// DO CONTEXTO
+	}
+
+	@Override
+	public void configure(WebSecurity webSecurity) throws Exception {
+		webSecurity.ignoring()
+			.antMatchers("/v2/api-docs", 
+						"/configuration/ui", 
+						"/swagger-resources/**",
+						"/configuration/security", 
+						"/swagger-ui.html", 
+						"/webjars/**");
 	}
 }
